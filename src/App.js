@@ -70,7 +70,7 @@ const Index = () => {
 		dwadawdawd
 			<div className="camera">
 				{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-				<video ref={videoRef} id="video" style={{ width: '100vw', height: '80vh', objectFit: 'fill' }}>
+				<video ref={videoRef} autoplay id="video" style={{ width: '100vw', height: '80vh', objectFit: 'fill' }}>
 					Video stream not available.
 				</video>
 
