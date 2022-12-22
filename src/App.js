@@ -1,5 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+export const WEBRTC_QUALITY = {
+	HD: { width: { exact: 1280 }, height: { exact: 720 } },
+	FULL_HD: { width: { exact: 1920 }, height: { exact: 1080 } },
+	'4K': { width: { exact: 4096 }, height: { exact: 2160 } },
+	'8K': { width: { exact: 7680 }, height: { exact: 4320 } },
+};
+
 const Index = () => {
 	const videoRef = useRef(null);
 	const canvasRef = useRef(null);
@@ -12,24 +19,33 @@ const Index = () => {
 	// 	{ type: 'carBack', data: '', step: 2 },
 	// ]);
 
-	const getWebcam = callback => {
-		try {
-			const constraints = {
-				// video: { facingMode: 'environment' },
-				video: { facingMode: 'environment', width: { exact: 1920 }, height: { exact: 1080 }, mandatory: { minWidth: 1920, minHeight: 1080, frameRate: { min: 20, ideal: 30, max: 30 } } },
-				audio: false,
-			};
-			navigator.mediaDevices.getUserMedia(constraints).then(callback);
-		} catch (err) {
-			console.log(err);
-			return undefined;
-		}
+	const getIphoneMediaStream = (callback) => {
+		const constraints = (window.constraints = {
+			audio: false,
+			video: { facingMode: 'environment', ...WEBRTC_QUALITY['FULL_HD'], mandatory: { minWidth: 1920, minHeight: 1080, frameRate: { min: 20, ideal: 30, max: 30 } } },
+		});
+
+		 navigator.mediaDevices.getUserMedia(constraints).then(callback);
 	};
+
+	// const getWebcam = callback => {
+	// 	try {
+	// 		const constraints = {
+	// 			// video: { facingMode: 'environment' },
+	// 			video: { facingMode: 'environment', width: { exact: 1920 }, height: { exact: 1080 }, mandatory: { minWidth: 1920, minHeight: 1080, frameRate: { min: 20, ideal: 30, max: 30 } } },
+	// 			audio: false,
+	// 		};
+	// 		navigator.mediaDevices.getUserMedia(constraints).then(callback);
+	// 	} catch (err) {
+	// 		console.log(err);
+	// 		return undefined;
+	// 	}
+	// };
 
 	useEffect(() => {
 		setScreenHeight(window.innerHeight);
 		setScreenWidth(window.innerWidth);
-		getWebcam(stream => {
+		getIphoneMediaStream(stream => {
 			videoRef.current.srcObject = stream;
 			videoRef.current.play();
 			console.log(stream.getVideoTracks()[0]);
@@ -51,6 +67,7 @@ const Index = () => {
 
 	return (
 		<>
+		dwadawdawd
 			<div className="camera">
 				{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
 				<video ref={videoRef} id="video" style={{ width: '100vw', height: '80vh', objectFit: 'fill' }}>
