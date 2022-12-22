@@ -15,7 +15,8 @@ const Index = () => {
 	const getWebcam = callback => {
 		try {
 			const constraints = {
-				video: { facingMode: 'environment' },
+				// video: { facingMode: 'environment' },
+				video: { facingMode: 'environment', width: { exact: 1920 }, height: { exact: 1080 }, mandatory: { minWidth: 1920, minHeight: 1080, frameRate: { min: 20, ideal: 30, max: 30 } } },
 				audio: false,
 			};
 			navigator.mediaDevices.getUserMedia(constraints).then(callback);
