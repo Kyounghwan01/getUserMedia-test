@@ -45,13 +45,16 @@ const Index = () => {
 	useEffect(() => {
 		setScreenHeight(window.innerHeight);
 		setScreenWidth(window.innerWidth);
+	}, []);
+
+	const testFunc = () => {
 		getIphoneMediaStream(stream => {
 			videoRef.current.stream = stream;
 			videoRef.current.srcObject = stream;
 			videoRef.current.play();
 			console.log(stream.getVideoTracks()[0]);
 		});
-	}, []);
+	}
 
 	const captureVideo = () => {
 		console.log(123);
@@ -68,7 +71,8 @@ const Index = () => {
 
 	return (
 		<>
-		배포테스트1
+		배포테스트2
+		<button onClick={testFunc}>teststetset</button>
 			<div className="camera">
 				{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
 				<video ref={videoRef} autoplay id="video" style={{ width: '100vw', height: '80vh', objectFit: 'fill' }}>
