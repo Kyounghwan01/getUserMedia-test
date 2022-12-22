@@ -61,7 +61,7 @@ const Index = () => {
 				<canvas width={screenWidth} height={screenHeight} ref={canvasRef} id="canvas" style={{ display: 'none' }} />
 				{canvasImage && <img alt="ddd" src={canvasImage} height={screenHeight} width={screenWidth} />}
 				<div className="camera-inner">
-					<div>7/8</div>
+					<div>1/8</div>
 					<div>조수석 옆면 촬영</div>
 					<div>옆면 전체가 잘 보이도록...</div>
 					https://github.com/mdn/samples-server/blob/master/s/webrtc-capturestill/index.html
