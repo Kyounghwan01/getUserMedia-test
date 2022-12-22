@@ -46,6 +46,7 @@ const Index = () => {
 		setScreenHeight(window.innerHeight);
 		setScreenWidth(window.innerWidth);
 		getIphoneMediaStream(stream => {
+			videoRef.current.stream = stream;
 			videoRef.current.srcObject = stream;
 			videoRef.current.play();
 			console.log(stream.getVideoTracks()[0]);
@@ -67,7 +68,7 @@ const Index = () => {
 
 	return (
 		<>
-		dwadawdawd
+		배포테스트1
 			<div className="camera">
 				{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
 				<video ref={videoRef} autoplay id="video" style={{ width: '100vw', height: '80vh', objectFit: 'fill' }}>
