@@ -10,7 +10,7 @@ export const WEBRTC_QUALITY = {
 const Index = () => {
 	const videoRef = useRef(null);
 	const canvasRef = useRef(null);
-	const [canvasImage, setCanvasImage] = useState('');
+	const [canvasImage, setCanvasImage] = useState([]);
 	const [screenWidth, setScreenWidth] = useState(0);
 	const [screenHeight, setScreenHeight] = useState(0);
 	// const [currentStep, setCurrentStep] = useState(1);
@@ -80,10 +80,9 @@ const Index = () => {
 		context.drawImage(videoRef.current, 0, 0, screenWidth, screenHeight);
 
 		const data = canvasRef.current.toDataURL('image/png');
-		// const imgList = [...canvasImage, data];
-		// setCanvasImage(imgList);
-		// console.log(data);
-		setCanvasImage(data);
+		const imgList = [...canvasImage, data];
+		setCanvasImage(imgList);
+		console.log(data);
 	};
 
 	function handleSuccess(stream) {
@@ -100,7 +99,7 @@ const Index = () => {
 
 	return (
 		<>
-		배포테스트5
+		배포테스트6
 		{/* <button onClick={testFunc}>teststetset</button> */}
 			<div className="camera">
 				{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
@@ -109,14 +108,14 @@ const Index = () => {
 				</video>
 
 				<canvas width={screenWidth} height={screenHeight} ref={canvasRef} id="canvas" style={{ display: 'none' }} />
-				{canvasImage && <img alt="ddd" src={canvasImage} height={screenHeight} width={screenWidth} />}
-				{/* {canvasImage.length && (
+				{/* {canvasImage && <img alt="ddd" src={canvasImage} height={screenHeight} width={screenWidth} />} */}
+				{canvasImage.length && (
 					canvasImage.map(img => {
 						return (
 							<img alt="ddd" src={img} height={screenHeight} width={screenWidth} />
 						)
 					})
-				)} */}
+				)}
 				
 				<button onClick={captureVideo} style={{ padding: '10px', background: 'red' }}>
 						Take photo
