@@ -42,9 +42,14 @@ const Index = () => {
 	// 	}
 	// };
 
-	useEffect(async () => {
+	useEffect(() => {
 		setScreenHeight(window.innerHeight);
 		setScreenWidth(window.innerWidth);
+		test();
+		() => null
+	}, []);
+
+	const test = async () => {
 
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({
@@ -55,7 +60,7 @@ const Index = () => {
 		  } catch (e) {
 			window.confirm(e);
 		  }
-	}, []);
+	}
 
 	// const testFunc = () => {
 	// 	getIphoneMediaStream(stream => {
@@ -81,8 +86,8 @@ const Index = () => {
 
 	function handleSuccess(stream) {
 		const video = document.querySelector("video");
-		const videoTracks = stream.getVideoTracks();
-		// console.log("Got stream with constraints:", constraints);
+		// const videoTracks = stream.getVideoTracks();
+		// // console.log("Got stream with constraints:", constraints);
 		// console.log(`Using video device: ${videoTracks[0].label}`);
 		window.stream = stream; // make variable available to browser console
 		video.srcObject = stream;
@@ -95,7 +100,7 @@ const Index = () => {
 		{/* <button onClick={testFunc}>teststetset</button> */}
 			<div className="camera">
 				{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-				<video ref={videoRef} autoplay id="video" style={{ width: '100vw', height: '80vh', objectFit: 'fill' }}>
+				<video ref={videoRef} autoPlay playsInline id="video" style={{ width: '100vw', height: '80vh', objectFit: 'fill' }}>
 					Video stream not available.
 				</video>
 
