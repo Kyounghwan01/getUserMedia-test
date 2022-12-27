@@ -19,14 +19,14 @@ const Index = () => {
 	// 	{ type: 'carBack', data: '', step: 2 },
 	// ]);
 
-	const getIphoneMediaStream = (callback) => {
-		const constraints = (window.constraints = {
-			audio: false,
-			video: { facingMode: 'environment', ...WEBRTC_QUALITY['FULL_HD'], mandatory: { minWidth: 1920, minHeight: 1080, frameRate: { min: 20, ideal: 30, max: 30 } } },
-		});
+	// const getIphoneMediaStream = (callback) => {
+	// 	const constraints = (window.constraints = {
+	// 		audio: false,
+	// 		video: { facingMode: 'environment', ...WEBRTC_QUALITY['FULL_HD'], mandatory: { minWidth: 1920, minHeight: 1080, frameRate: { min: 20, ideal: 30, max: 30 } } },
+	// 	});
 
-		 navigator.mediaDevices.getUserMedia(constraints).then(callback);
-	};
+	// 	 navigator.mediaDevices.getUserMedia(constraints).then(callback);
+	// };
 
 	// const getWebcam = callback => {
 	// 	try {
@@ -82,8 +82,8 @@ const Index = () => {
 	function handleSuccess(stream) {
 		const video = document.querySelector("video");
 		const videoTracks = stream.getVideoTracks();
-		console.log("Got stream with constraints:", constraints);
-		console.log(`Using video device: ${videoTracks[0].label}`);
+		// console.log("Got stream with constraints:", constraints);
+		// console.log(`Using video device: ${videoTracks[0].label}`);
 		window.stream = stream; // make variable available to browser console
 		video.srcObject = stream;
 	  }
