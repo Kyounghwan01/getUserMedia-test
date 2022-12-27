@@ -10,7 +10,7 @@ export const WEBRTC_QUALITY = {
 const Index = () => {
 	const videoRef = useRef(null);
 	const canvasRef = useRef(null);
-	const [canvasImage, setCanvasImage] = useState([]);
+	const [canvasImage, setCanvasImage] = useState('');
 	const [screenWidth, setScreenWidth] = useState(0);
 	const [screenHeight, setScreenHeight] = useState(0);
 	// const [currentStep, setCurrentStep] = useState(1);
@@ -44,8 +44,9 @@ const Index = () => {
 
 	// eslint-disable-next-line
 	useEffect(() => {
-		setScreenHeight(window.innerWidth / 3);
-		setScreenWidth(window.innerWidth /3 );
+		const innerW = window.innerWidth / 3;
+		setScreenHeight(innerW);
+		setScreenWidth(innerW);
 		test();
 		// eslint-disable-next-line
 	}, []);
@@ -79,9 +80,10 @@ const Index = () => {
 		context.drawImage(videoRef.current, 0, 0, screenWidth, screenHeight);
 
 		const data = canvasRef.current.toDataURL('image/png');
-		const imgList = [...canvasImage, data];
-		setCanvasImage(imgList);
-		console.log(data);
+		// const imgList = [...canvasImage, data];
+		// setCanvasImage(imgList);
+		// console.log(data);
+		setCanvasImage(data);
 	};
 
 	function handleSuccess(stream) {
@@ -107,13 +109,14 @@ const Index = () => {
 				</video>
 
 				<canvas width={screenWidth} height={screenHeight} ref={canvasRef} id="canvas" style={{ display: 'none' }} />
-				{canvasImage.length && (
+				{canvasImage && <img alt="ddd" src={canvasImage} height={screenHeight} width={screenWidth} />}
+				{/* {canvasImage.length && (
 					canvasImage.map(img => {
 						return (
 							<img alt="ddd" src={img} height={screenHeight} width={screenWidth} />
 						)
 					})
-				)}
+				)} */}
 				
 				<button onClick={captureVideo} style={{ padding: '10px', background: 'red' }}>
 						Take photo
