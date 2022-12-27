@@ -46,7 +46,6 @@ const Index = () => {
 		setScreenHeight(window.innerHeight);
 		setScreenWidth(window.innerWidth);
 		test();
-		() => null
 	}, []);
 
 	const test = async () => {
