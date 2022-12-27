@@ -90,7 +90,7 @@ const Index = () => {
 		// const videoTracks = stream.getVideoTracks();
 		// // console.log("Got stream with constraints:", constraints);
 		// console.log(`Using video device: ${videoTracks[0].label}`);
-		window.stream = stream; // make variable available to browser console
+		// window.stream = stream; // make variable available to browser console
 		// video.srcObject = stream;
 		videoRef.current.stream = stream;
 		videoRef.current.srcObject = stream;
@@ -99,7 +99,7 @@ const Index = () => {
 
 	return (
 		<>
-		배포테스트3
+		배포테스트4
 		{/* <button onClick={testFunc}>teststetset</button> */}
 			<div className="camera">
 				{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
