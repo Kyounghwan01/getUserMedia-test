@@ -42,10 +42,12 @@ const Index = () => {
 	// 	}
 	// };
 
+	// eslint-disable-next-line
 	useEffect(() => {
 		setScreenHeight(window.innerHeight);
 		setScreenWidth(window.innerWidth);
 		test();
+		// eslint-disable-next-line
 	}, []);
 
 	const test = async () => {
