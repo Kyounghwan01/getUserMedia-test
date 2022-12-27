@@ -42,19 +42,29 @@ const Index = () => {
 	// 	}
 	// };
 
-	useEffect(() => {
+	useEffect(async () => {
 		setScreenHeight(window.innerHeight);
 		setScreenWidth(window.innerWidth);
+
+		try {
+			const stream = await navigator.mediaDevices.getUserMedia({
+				audio: false,
+				video: true,
+			  });
+			handleSuccess(stream);
+		  } catch (e) {
+			window.confirm(e);
+		  }
 	}, []);
 
-	const testFunc = () => {
-		getIphoneMediaStream(stream => {
-			videoRef.current.stream = stream;
-			videoRef.current.srcObject = stream;
-			videoRef.current.play();
-			console.log(stream.getVideoTracks()[0]);
-		});
-	}
+	// const testFunc = () => {
+	// 	getIphoneMediaStream(stream => {
+	// 		videoRef.current.stream = stream;
+	// 		videoRef.current.srcObject = stream;
+	// 		videoRef.current.play();
+	// 		console.log(stream.getVideoTracks()[0]);
+	// 	});
+	// }
 
 	const captureVideo = () => {
 		console.log(123);
@@ -69,10 +79,20 @@ const Index = () => {
 		console.log(data);
 	};
 
+	function handleSuccess(stream) {
+		const video = document.querySelector("video");
+		const videoTracks = stream.getVideoTracks();
+		console.log("Got stream with constraints:", constraints);
+		console.log(`Using video device: ${videoTracks[0].label}`);
+		window.stream = stream; // make variable available to browser console
+		video.srcObject = stream;
+	  }
+	  
+
 	return (
 		<>
-		배포테스트2
-		<button onClick={testFunc}>teststetset</button>
+		배포테스트3
+		{/* <button onClick={testFunc}>teststetset</button> */}
 			<div className="camera">
 				{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
 				<video ref={videoRef} autoplay id="video" style={{ width: '100vw', height: '80vh', objectFit: 'fill' }}>
