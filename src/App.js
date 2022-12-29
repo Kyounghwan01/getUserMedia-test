@@ -54,7 +54,7 @@ const Index = () => {
 	const getDivice = async () => {
 		const deviceInfos = await navigator.mediaDevices.enumerateDevices();
 		console.log(deviceInfos)
-		window.confirm(JSON.stringify(deviceInfos.find(device => device.kind === 'videoinput')));
+		window.confirm(JSON.stringify(deviceInfos.filter(device => device.kind === 'videoinput')));
 	}
 
 	const test = async () => {
