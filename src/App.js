@@ -38,7 +38,7 @@ const Index = () => {
 		} catch (e) {
 			// OverconstrainedError -> 존재하지않는 constraints 기기 타입을 찾는 경우, 카메라없는데 video 접근하는 경우
 			console.log(e);
-			// window.confirm('후방 카메라를 찾을 수 없습니다.');
+			window.confirm('후방 카메라를 찾을 수 없습니다.');
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: false,
 				video: true,
