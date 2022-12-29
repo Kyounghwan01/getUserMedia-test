@@ -51,36 +51,22 @@ const Index = () => {
 		// eslint-disable-next-line
 	}, []);
 
-	// const getDivice = async () => {
-	// 	const deviceInfos = await navigator.mediaDevices.enumerateDevices();
-	// 	console.log(deviceInfos)
-	// 	window.confirm(JSON.stringify(deviceInfos.filter(device => device.kind === 'videoinput')));
-	// }
-
 	const test = async () => {
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: false,
-				video: {
-					facingMode: { exact: "environment" }
-				  },
+				video: true,
+				// video: {facingMode: { exact: "environment" }},
 			  });
 			handleSuccess(stream);
 
 			// getDivice();
 		  } catch (e) {
-			window.confirm(e);
+			// OverconstrainedError -> 존재하지않는 constraints 기기 타입을 찾는 경우, 카메라없는데 video 접근하는 경우
+			console.log(e);
+			window.confirm('후방 카메라를 찾을 수 없습니다.');
 		  }
 	}
-
-	// const testFunc = () => {
-	// 	getIphoneMediaStream(stream => {
-	// 		videoRef.current.stream = stream;
-	// 		videoRef.current.srcObject = stream;
-	// 		videoRef.current.play();
-	// 		console.log(stream.getVideoTracks()[0]);
-	// 	});
-	// }
 
 	const captureVideo = () => {
 		console.log(123);
@@ -109,11 +95,9 @@ const Index = () => {
 
 	return (
 		<>
-		배포테스트6
-		{/* <button onClick={testFunc}>teststetset</button> */}
 			<div className="camera">
 				{/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-				<video ref={videoRef} autoPlay playsInline id="video" style={{ width: '30vw', height: '30vw', objectFit: 'fill' }}>
+				<video ref={videoRef} autoPlay playsInline id="video" style={{ width: '100vw', height: '100vh', objectFit: 'fill' }}>
 					Video stream not available.
 				</video>
 
