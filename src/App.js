@@ -51,21 +51,23 @@ const Index = () => {
 		// eslint-disable-next-line
 	}, []);
 
-	const getDivice = async () => {
-		const deviceInfos = await navigator.mediaDevices.enumerateDevices();
-		console.log(deviceInfos)
-		window.confirm(JSON.stringify(deviceInfos.filter(device => device.kind === 'videoinput')));
-	}
+	// const getDivice = async () => {
+	// 	const deviceInfos = await navigator.mediaDevices.enumerateDevices();
+	// 	console.log(deviceInfos)
+	// 	window.confirm(JSON.stringify(deviceInfos.filter(device => device.kind === 'videoinput')));
+	// }
 
 	const test = async () => {
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: false,
-				video: true,
+				video: {
+					facingMode: { exact: "environment" }
+				  },
 			  });
 			handleSuccess(stream);
 
-			getDivice();
+			// getDivice();
 		  } catch (e) {
 			window.confirm(e);
 		  }
