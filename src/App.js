@@ -48,8 +48,15 @@ const Index = () => {
 		setScreenHeight(innerW);
 		setScreenWidth(innerW);
 		test();
+		getDivice();
 		// eslint-disable-next-line
 	}, []);
+
+	const getDivice = async () => {
+		const deviceInfos = await navigator.mediaDevices.enumerateDevices();
+		console.log(deviceInfos)
+		window.confirm(JSON.stringify(deviceInfos.find(device => device.kind === 'videoinput')));
+	}
 
 	const test = async () => {
 		try {
