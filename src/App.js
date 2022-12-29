@@ -30,7 +30,7 @@ const Index = () => {
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: false,
 				// video: true,
-				video: {facingMode: { exact: "environment" }},
+				video: { facingMode: { exact: "environment" } },
 			});
 			handleSuccess(stream);
 
@@ -38,7 +38,12 @@ const Index = () => {
 		} catch (e) {
 			// OverconstrainedError -> 존재하지않는 constraints 기기 타입을 찾는 경우, 카메라없는데 video 접근하는 경우
 			console.log(e);
-			window.confirm('후방 카메라를 찾을 수 없습니다.');
+			// window.confirm('후방 카메라를 찾을 수 없습니다.');
+			const stream = await navigator.mediaDevices.getUserMedia({
+				audio: false,
+				video: true,
+			});
+			handleSuccess(stream);
 		}
 	}
 
@@ -74,32 +79,32 @@ const Index = () => {
 						)}
 					</div>
 				) : (
-					<div className="boxc">
-						<div className="camera">
-							<video ref={videoRef} autoPlay playsInline id="video">
-								Video stream not available.
-							</video>
+					<>
+						<video ref={videoRef} autoPlay playsInline id="video">
+							Video stream not available.
+						</video>
+						<div className="boxc">
+							<div className="camera">
+								<div className="content">
+									<h1>{script[canvasImage.length].title}</h1>
+									<h2>{script[canvasImage.length].descript}</h2>
 
-							<div className="content">
-								<h1>{script[canvasImage.length].title}</h1>
-								<h2>{script[canvasImage.length].descript}</h2>
+									<button onClick={captureVideo} style={{ padding: '10px', background: 'red' }}>
+										Take photo
+									</button>
+								</div>
 
-								<button onClick={captureVideo} style={{ padding: '10px', background: 'red' }}>
-									Take photo
-								</button>
+								<canvas width={screenWidth} height={screenHeight} ref={canvasRef} id="canvas" style={{ display: 'none' }} />
 							</div>
-
-							<canvas width={screenWidth} height={screenHeight} ref={canvasRef} id="canvas" style={{ display: 'none' }} />
-							{/* {canvasImage && <img alt="ddd" src={canvasImage} height={screenHeight} width={screenWidth} />} */}
 						</div>
-					</div>
+					</>
 				)
 			}
 			<style>
 				{`
 						video {
-							width: 100vh;
-							height: 100vw;
+							width: 100vw;
+							height: 100vh;
 							object-fit: fill;
 						}
 						.content {
@@ -111,6 +116,10 @@ const Index = () => {
 							.boxc {
 							  height: 100vw;
 							  transform: rotate(90deg);
+							  position: absolute;
+							  top: 0;
+							  width: 100%;
+							  left: 0;
 							}
 						}
 						@media only screen and (orientation:landscape) {
