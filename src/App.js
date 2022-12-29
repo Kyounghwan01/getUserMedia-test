@@ -48,7 +48,6 @@ const Index = () => {
 		setScreenHeight(innerW);
 		setScreenWidth(innerW);
 		test();
-		getDivice();
 		// eslint-disable-next-line
 	}, []);
 
@@ -65,6 +64,8 @@ const Index = () => {
 				video: true,
 			  });
 			handleSuccess(stream);
+
+			getDivice();
 		  } catch (e) {
 			window.confirm(e);
 		  }
