@@ -7,7 +7,8 @@ export const WEBRTC_QUALITY = {
 	'8K': { width: { exact: 7680 }, height: { exact: 4320 } },
 };
 
-const script = [{ title: '정면 촬영', descript: '정면 전체와 번호판이 잘 보이도록 <br />가이드를 따라 촬영해 주세요' }, { title: '운전석 앞 모서리 촬영', descript: '가이드라인을 따라 촬영해 주세요' }]
+// const script = [{ title: '정면 촬영', descript: '정면 전체와 번호판이 잘 보이도록 <br />가이드를 따라 촬영해 주세요' }, { title: '운전석 앞 모서리 촬영', descript: '가이드라인을 따라 촬영해 주세요' }]
+const script = [{ title: '정면 촬영', descript: '정면 전체와 번호판이 잘 보이도록 <br />가이드를 따라 촬영해 주세요' }]
 
 const Index = () => {
 	const videoRef = useRef(null);
@@ -15,12 +16,12 @@ const Index = () => {
 	const [canvasImage, setCanvasImage] = useState([]);
 	const [screenWidth, setScreenWidth] = useState(0);
 	const [screenHeight, setScreenHeight] = useState(0);
+	const [previewImageIndex, setPreviceImageIndex] = useState(false);
 
 
 	useEffect(() => {
-		const innerW = window.innerWidth / 3;
-		setScreenHeight(innerW);
-		setScreenWidth(innerW);
+		setScreenHeight(window.innerHeight);
+		setScreenWidth(window.innerWidth);
 		getCamera();
 		// eslint-disable-next-line
 	}, []);
@@ -91,19 +92,39 @@ const Index = () => {
 		videoRef.current.srcObject = stream;
 	}
 
+	const previewImage = (index) => {
+		setPreviceImageIndex(typeof previewImageIndex === 'number' ? false : index);
+	}
+	// 찍었는데 이미지가 가로가 커 
+
 
 	return (
 		<>
 			{
 				(canvasImage.length && canvasImage.length >= script.length) ? (
-					<div>
-						{canvasImage.length && (
-							canvasImage.map(img => {
-								return (
-									<img key={img} alt="ddd" src={img} />
-								)
-							})
-						)}
+					<div className="preview-container">
+						{
+							typeof previewImageIndex === 'number' ? (
+								<div className="preview-container">
+									<img alt="preview" src={canvasImage[previewImageIndex]} onClick={() => previewImage(false)} />
+									<div class="shotmode">
+										<button><div>다시찍기</div></button>
+										<button><div>다음</div></button>
+									</div>
+								</div>
+
+							) : (
+								<div>
+									{canvasImage.length && (
+										canvasImage.map((img, index) => {
+											return (
+												<img onClick={() => previewImage(index)} key={img} alt="ddd" src={img} />
+											)
+										})
+									)}
+								</div>
+							)
+						}
 					</div>
 				) : (
 					<>
@@ -139,6 +160,26 @@ const Index = () => {
 							top: 0;
 							left: 0;
 						}
+						.shotmode {
+							display: flex;
+							background-color: rgba(0,0,0,0.7);
+							position: absolute;
+							right: 0;
+							bottom: 0;
+							left: 0;
+							flex-direction: row-reverse;
+						  }
+						  .shotmode button {
+							height: 120px;
+							flex: 1;
+							background: transparent;
+							border: 0;
+							color: #fff;
+						  }
+						  .shotmode button div {
+							display: inline-block;
+							transform: rotate(90deg);
+						  }
 						@media only screen and (orientation:portrait) {
 							.boxc {
 							  height: 100vw;
@@ -155,6 +196,27 @@ const Index = () => {
 								height: 100vh;
 								object-fit: fill;
 							}
+							.preview-container {
+								img {
+									width: 100vw;
+								height: 100vh;
+								object-fit: fill;
+								}
+							}
+							.shotmode {
+								right: 0;
+								left: auto;
+								bottom: 0;
+								top: 0;
+								flex-direction: column;
+							  }
+							  .shotmode button {
+								width: 120px;
+								height: auto;
+							  }
+							  .shotmode button div{
+								transform: rotate(0);
+							  }
 						}
 					`}
 			</style>
