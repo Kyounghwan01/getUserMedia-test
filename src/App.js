@@ -105,7 +105,7 @@ const Index = () => {
 					<div className="preview-container">
 						{
 							typeof previewImageIndex === 'number' ? (
-								<div className="preview-container">
+								<div className="">
 									<img alt="preview" src={canvasImage[previewImageIndex]} onClick={() => previewImage(false)} />
 									<div class="shotmode">
 										<button><div>다시찍기</div></button>
@@ -196,12 +196,10 @@ const Index = () => {
 								height: 100vh;
 								object-fit: fill;
 							}
-							.preview-container {
-								img {
-									width: 100vw;
+							.preview-container img {
+								width: 100vw;
 								height: 100vh;
 								object-fit: fill;
-								}
 							}
 							.shotmode {
 								right: 0;
