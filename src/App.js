@@ -30,7 +30,7 @@ const Index = () => {
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: false,
 				// video: true,
-				video: { facingMode: { exact: "environment" } },
+				video: { facingMode: { exact: "environment" }, ...WEBRTC_QUALITY['FULL_HD'] },
 			});
 			handleSuccess(stream);
 
@@ -39,9 +39,22 @@ const Index = () => {
 			// OverconstrainedError -> 존재하지않는 constraints 기기 타입을 찾는 경우, 카메라없는데 video 접근하는 경우
 			console.log(e);
 			window.confirm('후방 카메라를 찾을 수 없습니다.');
+
+			const deviceList = await navigator.mediaDevices.enumerateDevices();
+
+			const videoDevice = deviceList
+				.filter(device => device.kind === 'videoinput' && (device.label.match(/back/g) || device.label.match(/environment/g)))
+				.reverse();
+
+			window.confirm(JSON.stringify(videoDevice));
+
+
+
+
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: false,
 				video: true,
+				...WEBRTC_QUALITY['FULL_HD']
 			});
 			handleSuccess(stream);
 		}
