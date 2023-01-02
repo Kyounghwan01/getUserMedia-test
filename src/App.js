@@ -43,18 +43,9 @@ const Index = () => {
 			const deviceList = await navigator.mediaDevices.enumerateDevices();
 			console.log(deviceList)
 
-			// const videoDevice = deviceList
-			// 	.filter(device => device.kind === 'videoinput' && (device.label.match(/back/g) || device.label.match(/environment/g)))
-			// 	.reverse();
-
 			const videoDevice = deviceList
-				.filter(device => device.kind === 'videoinput' && device.label.match(/back/g))
+				.filter(device => device.kind === 'videoinput' && (device.label.match(/back/g) || device.label.match(/environment/g)))
 				.reverse();
-
-			window.confirm(JSON.stringify(videoDevice));
-
-
-
 
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: false,
