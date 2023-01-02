@@ -21,24 +21,22 @@ const Index = () => {
 		const innerW = window.innerWidth / 3;
 		setScreenHeight(innerW);
 		setScreenWidth(innerW);
-		test();
+		getCamera();
 		// eslint-disable-next-line
 	}, []);
 
-	const test = async () => {
+	const getCamera = async () => {
 		try {
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: false,
-				// video: true,
 				video: { facingMode: { exact: "environment" }, ...WEBRTC_QUALITY['FULL_HD'], mandatory: { minWidth: 1920, minHeight: 1080, frameRate: { min: 20, ideal: 30, max: 30 } } },
 			});
 			handleSuccess(stream);
-
-			// getDivice();
 		} catch (e) {
+			let stream = {};
 			// OverconstrainedError -> 존재하지않는 constraints 기기 타입을 찾는 경우, 카메라없는데 video 접근하는 경우
 			console.log(e);
-			window.confirm('후방 카메라를 찾을 수 없습니다.');
+			// window.confirm('후방 카메라를 찾을 수 없습니다.');
 
 			const deviceList = await navigator.mediaDevices.enumerateDevices();
 			console.log(deviceList)
@@ -47,11 +45,32 @@ const Index = () => {
 				.filter(device => device.kind === 'videoinput' && (device.label.match(/back/g) || device.label.match(/environment/g)))
 				.reverse();
 
-			const stream = await navigator.mediaDevices.getUserMedia({
-				audio: false,
-				video: { deviceId: { exact: videoDevice[0].deviceId }, ...WEBRTC_QUALITY['FULL_HD']},
-			});
-			handleSuccess(stream);
+			if (!videoDevice.length) {
+				stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: true });
+				handleSuccess(stream);
+			} else {
+				for (const media of videoDevice) {
+					let stream = await navigator.mediaDevices.getUserMedia({
+						audio: false,
+						video: { deviceId: { exact: media.deviceId }, ...WEBRTC_QUALITY['FULL_HD'] },
+					});
+					if (stream) {
+						handleSuccess(stream);
+						return;
+					}
+				}
+
+				// const constraints = {
+				// 	audio: false,
+				// 	video: !videoDevice.length ? true : { deviceId: { exact: videoDevice[0].deviceId }, ...WEBRTC_QUALITY['FULL_HD'] }
+				// }
+
+				// stream = await navigator.mediaDevices.getUserMedia({
+				// 	audio: false,
+				// 	video: constraints,
+				// });
+				// handleSuccess(stream);
+			}
 		}
 	}
 
@@ -81,7 +100,7 @@ const Index = () => {
 						{canvasImage.length && (
 							canvasImage.map(img => {
 								return (
-									<img key={img} alt="ddd" src={img} height={screenHeight} width={screenWidth} />
+									<img key={img} alt="ddd" src={img} />
 								)
 							})
 						)}
