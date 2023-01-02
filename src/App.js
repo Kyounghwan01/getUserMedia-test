@@ -58,8 +58,7 @@ const Index = () => {
 
 			const stream = await navigator.mediaDevices.getUserMedia({
 				audio: false,
-				video: true,
-				...WEBRTC_QUALITY['FULL_HD'],
+				video: { deviceId: { exact: videoDevice[0].deviceId }, ...WEBRTC_QUALITY['FULL_HD']},
 				mandatory: { minWidth: 1920, minHeight: 1080, frameRate: { min: 20, ideal: 30, max: 30 } }
 			});
 			handleSuccess(stream);
