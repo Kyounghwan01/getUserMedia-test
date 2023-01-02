@@ -48,7 +48,7 @@ const Index = () => {
 			// 	.reverse();
 
 			const videoDevice = deviceList
-				.filter(device => device.kind === 'videoinput')
+				.filter(device => device.kind === 'videoinput' && device.label.match(/back/g))
 				.reverse();
 
 			window.confirm(JSON.stringify(videoDevice));
