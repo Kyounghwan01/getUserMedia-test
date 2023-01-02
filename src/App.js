@@ -41,9 +41,14 @@ const Index = () => {
 			window.confirm('후방 카메라를 찾을 수 없습니다.');
 
 			const deviceList = await navigator.mediaDevices.enumerateDevices();
+			console.log(deviceList)
+
+			// const videoDevice = deviceList
+			// 	.filter(device => device.kind === 'videoinput' && (device.label.match(/back/g) || device.label.match(/environment/g)))
+			// 	.reverse();
 
 			const videoDevice = deviceList
-				.filter(device => device.kind === 'videoinput' && (device.label.match(/back/g) || device.label.match(/environment/g)))
+				.filter(device => device.kind === 'videoinput')
 				.reverse();
 
 			window.confirm(JSON.stringify(videoDevice));
