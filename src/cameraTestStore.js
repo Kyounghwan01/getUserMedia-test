@@ -1,6 +1,6 @@
 const init = {
 	currentStep: 1,
-	canvasImage: [],
+	canvasImage: [],  // [{src: '', width: 999, height: 999}]
 	screenWidth: 0,
 	screenHeight: 0,
 	isViewPreview: false,

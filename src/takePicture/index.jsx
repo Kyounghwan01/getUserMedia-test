@@ -14,7 +14,7 @@ const Index = () => {
 				{cameraTestStore.isViewPreview ? (
 					<div className="preview-container">
 						<div className="">
-							<img alt="preview" src={cameraTestStore.canvasImage[cameraTestStore.currentStep - 1]} />
+							<img alt="preview" src={cameraTestStore.canvasImage[cameraTestStore.currentStep - 1].src} />
 							<div className="shotmode">
 								<button onClick={retryCapture}>
 									<div>다시찍기</div>

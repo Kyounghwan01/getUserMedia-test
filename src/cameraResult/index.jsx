@@ -6,11 +6,9 @@ const Index = () => {
 	const { cameraTestStore } = useStores();
 	const [imageDirection, setImageDirection] = useState('img');
 
-	const checkImageWithHeight = ({ target: img }) => {
+	const checkImageWithHeight = (img) => {
 		// 8개 사진 나오는 미리보기 때 찍었는데 이미지가 세로가 가로보다 크면 이미지 90도 로테이트
-		console.log(img.naturalHeight, img.naturalWidth);
-		alert(img.naturalHeight, img.naturalWidth);
-		setImageDirection(img.naturalHeight > img.naturalWidth ? 'revers-img' : 'img');
+		setImageDirection(img.width > img.height ? 'img' : 'revers-img');
 	};
 
 	return (
@@ -28,7 +26,7 @@ const Index = () => {
 										borderRadius: '50%',
 									}}
                                     alt="dw"
-									src={img}
+									src={img.src}
 									onClick={() => {
 										cameraTestStore.setSelectPictureIndex(index);
 										cameraTestStore.setIsViewResultPreview(true);
@@ -39,7 +37,7 @@ const Index = () => {
 					</>
 				) : (
 					<div className="preview-container">
-						<img className={imageDirection} onLoad={checkImageWithHeight} alt="preview" src={cameraTestStore.canvasImage[cameraTestStore.selectPictureIndex]} />
+						<img className={imageDirection} onLoad={() => checkImageWithHeight(cameraTestStore.canvasImage[cameraTestStore.selectPictureIndex])} alt="preview" src={cameraTestStore.canvasImage[cameraTestStore.selectPictureIndex].src} />
 						<div className="shotmode">
 							<button>
 								<div>다시찍기</div>
@@ -103,9 +101,14 @@ const Index = () => {
 							align-items: center;
 							background-color: black;
 						}
-						.revers-img {
+						.img {
+                            width: 100vw;
+							object-fit: fill;
 							height: 100vw;
-							transform: rotate(90deg)
+						}
+						.revers-img {
+							transform: rotate(-90deg);
+							height: 100vw;
 						}
 						.content {
 							position: absolute;
