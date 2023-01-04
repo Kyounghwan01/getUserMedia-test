@@ -7,7 +7,10 @@ const Index = () => {
 	const cameraTestStore = useLocalObservable(CameraTestStore);
 
 	return (
-		<Provider cameraTestStore={cameraTestStore}>{cameraTestStore.currentStep >= cameraTestStore.step.length + 1 ? <CameraResult /> : <TakePicture />}</Provider>
+		<Provider cameraTestStore={cameraTestStore}>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			{cameraTestStore.currentStep >= cameraTestStore.step.length + 1 ? <CameraResult /> : <TakePicture />}
+		</Provider>
 	);
 };
 
