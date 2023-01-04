@@ -8,7 +8,7 @@ const Index = () => {
 
 	return (
 		<Provider cameraTestStore={cameraTestStore}>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0, width=device-width;" />
 			{cameraTestStore.currentStep >= cameraTestStore.step.length + 1 ? <CameraResult /> : <TakePicture />}
 		</Provider>
 	);
