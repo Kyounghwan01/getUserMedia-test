@@ -18,6 +18,7 @@ const useCamera = () => {
 		cameraTestStore.setScreenHeight(window.innerHeight);
 		cameraTestStore.setScreenWidth(window.innerWidth);
 		getCamera();
+        // eslint-disable-next-line
 	}, []);
 
 	const stopStream = () => {
