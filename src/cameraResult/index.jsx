@@ -27,6 +27,7 @@ const Index = () => {
 										height: '60px',
 										borderRadius: '50%',
 									}}
+                                    alt="dw"
 									src={img}
 									onClick={() => {
 										cameraTestStore.setSelectPictureIndex(index);
